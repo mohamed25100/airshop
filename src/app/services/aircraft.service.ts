@@ -13,6 +13,21 @@ export class AircraftService {
   //liste de tous les avions en base => une fois sur 2 souhaite provoquer une erreur
   public getAircrafts():Observable<Aircraft[]> {
     let host = Math.random() > 0.5 ? environment.host : environment.unreachableHost;
-    
+    return this.http.get<Aircraft[]>(host+"/aircrafts");
+  }
+
+  //liste des avions en phase design
+  public getDesignedAircrafts():Observable<Aircraft[]>{
+    return this.http.get<Aircraft[]>(environment.host+"/aircrafts?design=true");
+  }
+
+  //liste des avions en phase de développement
+  public getDevelopmentAircrafts():Observable<Aircraft[]>{
+    return this.http.get<Aircraft[]>(environment.host+"/aircrafts?development=true");
+  }
+
+  //renvoi un avion à partir de l'id
+  public getAircraftByMsn(id:number) : Observable<Aircraft> {
+    return this.http.get<Aircraft>(environment.host + "/aircrafts/" + id);
   }
 }
