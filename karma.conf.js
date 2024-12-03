@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/airshop'),
+      dir: require('path').join(__dirname, './coverage/airbus-app-ngrx'),
       subdir: '.',
       reporters: [
         { type: 'html' },
