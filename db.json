@@ -1,9 +1,40 @@
 {
     "aircrafts": [
-        {"msn": 1,"prog": "A350","design": true,"development": false},
-        {"msn": 2,"prog": "A320","design": false,"development": true},
-        {"msn": 3,"prog": "A380","design": false,"development": true},
-        {"msn": 4,"prog": "A400M","design": false,"development": false},
-        {"msn": 5,"prog": "A330","design": true,"development": true}
+        {
+            "msn": 1,
+            "prog": "A350",
+            "design": true,
+            "development": false
+        },
+        {
+            "msn": 2,
+            "prog": "A320",
+            "design": false,
+            "development": true
+        },
+        {
+            "msn": 3,
+            "prog": "A380",
+            "design": false,
+            "development": true
+        },
+        {
+            "msn": 4,
+            "prog": "A400M",
+            "design": false,
+            "development": false
+        },
+        {
+            "msn": 5,
+            "prog": "A330",
+            "design": true,
+            "development": true
+        }
+    ],
+    "users": [
+        {
+            "userName": "root",
+            "password": "1234"
+        }
     ]
 }
