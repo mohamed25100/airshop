@@ -1,21 +1,26 @@
 <div>
     <ul class="navbar navbar-nav">
         <li>
-            <button class="btn btn-outline-info m-2" (click)="getAllAircrafts()">Aircrafts</button>
-            <button class="btn btn-outline-info m-2" (click)="getDesignedAircrafts()">Design</button>
-            <button class="btn btn-outline-info m-2" (click)="getDevelopmentAircrafts()">Developement</button>
+            <button class="btn btn-outline-info m-2" (click)="getAllAircrafts()">Tous les Avions</button>
+            <button class="btn btn-outline-info m-2" (click)="getDesignedAircrafts()">Avions en étude</button>
+            <button class="btn btn-outline-info m-2" (click)="getDevelopmentAircrafts()">Avions en construction</button>
         </li>
     </ul>
-
-    <ng-container *ngIf="error">
-        <div class="p-2 text-danger">{{ error }}</div>
-    </ng-container>
-    <ng-container *ngIf="aircrafts">
-        <table class="table table-striped">
+    <ng-container *ngIf="aircrafts$ | async as result" [ngSwitch]="result.dataState">
+        <ng-container *ngSwitchCase="dataStateEnum.LOADING">
+            <div class="p-2">Loading</div>
+        </ng-container>
+        <ng-container *ngSwitchCase="dataStateEnum.LOADED">
+            <div class="p-2">Loaded</div>
+        </ng-container>
+        <ng-container *ngSwitchCase="dataStateEnum.ERROR">
+            <div class="p-2 text-danger">{{result.errorMessage}}</div>
+        </ng-container>
+        <table class="table">
             <tr>
-                <th>Id</th><th>Program</th><th>Design</th><th>Developement</th>
+                <th>Id</th><th>Programme</th><th>Etude</th><th>Conception</th>
             </tr>
-            <tr *ngFor="let aircraft of aircrafts">
+            <tr *ngFor="let aircraft of result.data">
                 <td>{{aircraft.msn}}</td>
                 <td>{{aircraft.prog}}</td>
                 <td>{{aircraft.design}}</td>
@@ -23,4 +28,41 @@
             </tr>
         </table>
     </ng-container>
+    <!--option 1 - 2
+    <ng-container *ngIf="error">
+        <div class="p-2 text-danger">{{ error }}</div>
+    </ng-container>
+    -->
+    <!--option 1
+        <ng-container *ngIf="aircrafts">
+    -->
+    <!--option 2
+    <ng-container *ngIf="aircrafts$">
+    -->
+    <!--option 1-2
+    
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th><th>Program</th><th>Design</th><th>Developement</th>
+            </tr>
+    -->
+            <!--option 1
+            <tr *ngFor="let aircraft of aircrafts">
+                <td>{{aircraft.msn}}</td>
+                <td>{{aircraft.prog}}</td>
+                <td>{{aircraft.design}}</td>
+                <td>{{aircraft.development}}</td>
+            </tr>            
+            -->
+            <!--option 2
+            
+            <tr *ngFor="let aircraft of aircrafts$ | async">
+                <td>{{aircraft.msn}}</td>
+                <td>{{aircraft.prog}}</td>
+                <td>{{aircraft.design}}</td>
+                <td>{{aircraft.development}}</td>
+            </tr>-->
+        <!--option 1-2
+        </table>
+    </ng-container>-->
 </div>
