@@ -36,11 +36,19 @@ export class AircraftsComponent implements OnInit {
   }
 
   getDesignedAircrafts() {
-
+    this.aircrafts$ = this.aircraftService.getDesignedAircrafts().pipe(
+      map(data => ({dataState : DataStateEnum.LOADED, data : data})),
+      startWith({dataState : DataStateEnum.LOADING}),
+      catchError(err => of({dataState : DataStateEnum.ERROR, errorMessage : err.message}))
+    );
   }
 
   getDevelopmentAircrafts() {
-    
+    this.aircrafts$ = this.aircraftService.getDevelopmentAircrafts().pipe(
+      map(data => ({dataState : DataStateEnum.LOADED, data : data})),
+      startWith({dataState : DataStateEnum.LOADING}),
+      catchError(err => of({dataState : DataStateEnum.ERROR, errorMessage : err.message}))
+    );
   }
 
   /*option 2
