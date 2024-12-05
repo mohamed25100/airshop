@@ -1,6 +1,6 @@
 
 import { AircraftsState, AircraftsStateEnum, initState } from "./aircrafts.state";
-import { AircraftActionsTypes, AircraftsActions } from "./aircrafts.actions";
+import { AircraftActionsTypes, AircraftsActions, DesignedAircraftActionsTypes, DeveloppedAircraftActionsTypes } from "./aircrafts.actions";
 import { Action } from "@ngrx/store";
 
 
@@ -17,6 +17,22 @@ export function AircraftsReducer(state : AircraftsState = initState, action:Acti
         case AircraftActionsTypes.GET_ALL_AIRCRAFTS_ERROR:
             return {...state, dataState: AircraftsStateEnum.ERROR, errorMessage:(<AircraftsActions> action).payload}
 
+        case AircraftActionsTypes.GET_ALL_AIRCRAFTS_SUCCESS:
+            //action recue par l'effect qui fait une demande en base, recoit les données et génére l'action =>ok
+            return { ...state, dataState: AircraftsStateEnum.LOADED, aircrafts: (<AircraftsActions>action).payload }
+            //renvoie un clone  + nouveau dataState + liste des avions en base contenu dans le payload
+        case DesignedAircraftActionsTypes.GET_DESIGNED_AIRCRAFTS_SUCCESS:
+            return { ...state, dataState: AircraftsStateEnum.LOADED, aircrafts: (<AircraftsActions>action).payload }
+        case DeveloppedAircraftActionsTypes.GET_DEVELOPPED_AIRCRAFTS_SUCCESS:
+            return { ...state, dataState: AircraftsStateEnum.LOADED, aircrafts: (<AircraftsActions>action).payload }
+    
+        case AircraftActionsTypes.GET_ALL_AIRCRAFTS_ERROR:
+            return { ...state, dataState: AircraftsStateEnum.ERROR, errorMessage: (<AircraftsActions>action).payload }
+        case DesignedAircraftActionsTypes.GET_DESIGNED_AIRCRAFTS_ERROR:
+            return { ...state, dataState: AircraftsStateEnum.ERROR, errorMessage: (<AircraftsActions>action).payload }
+        case DeveloppedAircraftActionsTypes.GET_DEVELOPPED_AIRCRAFTS_ERROR:
+            return { ...state, dataState: AircraftsStateEnum.ERROR, errorMessage: (<AircraftsActions>action).payload }
+    
         default:
             return {...state}
     }

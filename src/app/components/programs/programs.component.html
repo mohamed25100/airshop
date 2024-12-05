@@ -1,12 +1,15 @@
-<ng-container *ngIf="aircrafts$ | async as result" [ngSwitch]="result.dataState">
-    <ng-container *ngSwitchCase="dataStateEnum.LOADING">
+<ng-container *ngIf="aircrafts$ | async as result" [ngSwitch]="result.aircraftsState">
+    <ng-container *ngSwitchCase="aircraftsStateEnum.INITIAL">
+        <div class="p-2"> Initial State</div>
+    </ng-container>
+    <ng-container *ngSwitchCase="aircraftsStateEnum.LOADING">
         <div class="p-2">Loading</div>
     </ng-container>
-    <ng-container *ngSwitchCase="dataStateEnum.LOADED">
+    <ng-container *ngSwitchCase="aircraftsStateEnum.LOADED">
         <div class="p-2">Loaded</div>
     </ng-container>
-    <ng-container *ngSwitchCase="dataStateEnum.ERROR">
-        <div class="p-2 text-danger">{{result.errorMessage}}</div>
+    <ng-container *ngSwitchCase="aircraftsStateEnum.ERROR">
+        <div class="p-2 text-danger">{{aircraftsStateEnum.errorMessage}}</div>
     </ng-container>
     <table class="table">
         <tr>
