@@ -9,11 +9,13 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { AircraftsReducer } from './ngrx/aircrafts.reducer';
 import { AircraftsEffects } from './ngrx/aircrafts.effect';
+import { ProgramsComponent } from './components/programs/programs.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AircraftsComponent
+    AircraftsComponent,
+    ProgramsComponent
   ],
   imports: [
     BrowserModule,

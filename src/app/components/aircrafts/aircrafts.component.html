@@ -6,7 +6,7 @@
             <button class="btn btn-outline-info m-2" (click)="getDevelopmentAircrafts()">Avions en construction</button>
         </li>
     </ul>
-    <ng-container *ngIf="aircrafts$ | async as result" [ngSwitch]="result.dataState">
+    <ng-container *ngIf="aircraftsState$ | async as result" [ngSwitch]="result.dataState">
         <ng-container *ngSwitchCase="dataStateEnum.LOADING">
             <div class="p-2">Loading</div>
         </ng-container>
@@ -27,6 +27,15 @@
                 <td>{{aircraft.development}}</td>
             </tr>
         </table>
+        <div *ngIf="aircraftsState$ | async as state">
+            <ul>
+              <li *ngFor="let aircraft of state.aircrafts">
+                <button (click)="onSelectAircraft(aircraft.msn)">
+                  {{ aircraft.msn }} - {{ aircraft.prog }}
+                </button>
+              </li>
+            </ul>
+          </div>
     </ng-container>
     <!--option 1 - 2
     <ng-container *ngIf="error">

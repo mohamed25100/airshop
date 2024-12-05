@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { catchError, map, Observable, of, startWith } from 'rxjs';
-import { Aircraft } from 'src/app/model/aircraft.model';
+import { map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { GetAllAircraftsAction, GetDesignedAircraftsAction, GetDeveloppedAircraftsAction } from 'src/app/ngrx/aircrafts.actions';
 import { AircraftsState, AircraftsStateEnum } from 'src/app/ngrx/aircrafts.state';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-aircrafts',
@@ -11,18 +11,19 @@ import { AircraftsState, AircraftsStateEnum } from 'src/app/ngrx/aircrafts.state
   styleUrls: ['./aircrafts.component.css']
 })
 export class AircraftsComponent implements OnInit {
-  aircrafts$: Observable<AircraftsState> | null = null;
+  aircraftsState$: Observable<AircraftsState> | null = null;
   //option 3 : aircrafts est de type observable de structure de donnée AppDataState constituée de 3 éléments facultatifs
   //le type générique ici sera dans notre cas une liste d'avions
   //cette étape est indispensable afin de permettre à pipe de renvoyer le même type de donnée pour les 3 cas d'utilisations s,m et c
   readonly dataStateEnum = AircraftsStateEnum;
 
-  constructor(private store: Store<any>) {} //injection du store
+  constructor(private store: Store<any>, private router: Router) {} //injection du store
 
   ngOnInit(): void {
-    
+    this.aircraftsState$ = this.store.pipe( //ecoute du store, on recolte le state des qu'il change pour afficher les données
+      map((state)=> state.airbusState)
+    )
   }
-  //src\app\ngrx\aircrafts.state.ts
 
   getAllAircrafts() {
     //l'utilisateur a clique sur le bout on afficher tous les avions =>dispatch action à l'aide du store
@@ -37,6 +38,12 @@ export class AircraftsComponent implements OnInit {
   getDevelopmentAircrafts() {
       this.store.dispatch (new GetDeveloppedAircraftsAction({}));
   }
+
+  // je sélectionne un avion et renvoi vers la page de Programs
+  onSelectAircraft(msn: Number): void {
+  this.router.navigate(['/programs', msn]); // Redirection vers le component Programs avec msn comme paramètre
+    }
+
 
   /*option 2
   //aircraft[] | null; //option 1 : soit un tableau d'avions, soit null d'ou l'affectation

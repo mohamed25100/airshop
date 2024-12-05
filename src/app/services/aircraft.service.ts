@@ -27,7 +27,7 @@ export class AircraftService {
   }
 
   //renvoi un avion à partir de l'id
-  public getAircraftByMsn(id:number) : Observable<Aircraft> {
-    return this.http.get<Aircraft>(environment.host + "/aircrafts/" + id);
+  public getAircraftByMsn(msn:number) : Observable<Aircraft> {
+    return this.http.get<Aircraft>(`${environment.host}/aircrafts/${msn}`);
   }
 }
