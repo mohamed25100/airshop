@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError, map, Observable, of, startWith } from 'rxjs';
 import { Aircraft } from 'src/app/model/aircraft.model';
-import { AircraftService } from 'src/app/services/aircraft.service';
-import { AppDataState, DataStateEnum } from 'src/app/state/aircraft.state';
+import { Store } from '@ngrx/store';
+import { GetAllAircraftsAction, GetDesignedAircraftsAction, GetDeveloppedAircraftsAction } from 'src/app/ngrx/aircrafts.actions';
+import { AircraftsState, AircraftsStateEnum } from 'src/app/ngrx/aircrafts.state';
 
 @Component({
   selector: 'app-aircrafts',
@@ -10,45 +11,31 @@ import { AppDataState, DataStateEnum } from 'src/app/state/aircraft.state';
   styleUrls: ['./aircrafts.component.css']
 })
 export class AircraftsComponent implements OnInit {
-  aircrafts$: Observable<AppDataState<Aircraft[]>> | null = null;
+  aircrafts$: Observable<AircraftsState> | null = null;
   //option 3 : aircrafts est de type observable de structure de donnée AppDataState constituée de 3 éléments facultatifs
   //le type générique ici sera dans notre cas une liste d'avions
   //cette étape est indispensable afin de permettre à pipe de renvoyer le même type de donnée pour les 3 cas d'utilisations s,m et c
-  readonly dataStateEnum = DataStateEnum;
+  readonly dataStateEnum = AircraftsStateEnum;
 
-  constructor(private aircraftService:AircraftService) {}
+  constructor(private store: Store<any>) {} //injection du store
 
   ngOnInit(): void {
     
   }
+  //src\app\ngrx\aircrafts.state.ts
 
   getAllAircrafts() {
-    //option 3 : méthode Pipe avec un ensemble d'opérateur + gestion des états du chargement des données
-    //du coup, on peut appliquer un ensemble d'opérateur
-    this.aircrafts$ = this.aircraftService.getAircrafts().pipe(
-      map(data => ({dataState : DataStateEnum.LOADED, data : data})),
-      //opérateur map reçoit une liste d'avions et retourne une fonction avec pour paramètre un objet contenant cette liste
-      //il renvoi aussi une variable state qui précise l'état du chargement ici en cours
-      startWith({dataState : DataStateEnum.LOADING}), // dès que pipe est appelé, le premier état est spécifié ici
-      catchError(err => of({dataState : DataStateEnum.ERROR, errorMessage : err.message}))
-      //là aussi on retourne une fonction qui renvoie un Observable ici grâce à la méthode of      
-    );
+    //l'utilisateur a clique sur le bout on afficher tous les avions =>dispatch action à l'aide du store
+    this.store.dispatch (new GetAllAircraftsAction({}));
+      //le reducer et l'effect ont recu la notification du store et pris le relais   
   }
 
   getDesignedAircrafts() {
-    this.aircrafts$ = this.aircraftService.getDesignedAircrafts().pipe(
-      map(data => ({dataState : DataStateEnum.LOADED, data : data})),
-      startWith({dataState : DataStateEnum.LOADING}),
-      catchError(err => of({dataState : DataStateEnum.ERROR, errorMessage : err.message}))
-    );
+      this.store.dispatch (new GetDesignedAircraftsAction({}));
   }
 
   getDevelopmentAircrafts() {
-    this.aircrafts$ = this.aircraftService.getDevelopmentAircrafts().pipe(
-      map(data => ({dataState : DataStateEnum.LOADED, data : data})),
-      startWith({dataState : DataStateEnum.LOADING}),
-      catchError(err => of({dataState : DataStateEnum.ERROR, errorMessage : err.message}))
-    );
+      this.store.dispatch (new GetDeveloppedAircraftsAction({}));
   }
 
   /*option 2
