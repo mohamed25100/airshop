@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AircraftsActionsTypes } from 'src/app/action/aircraft.action';
-import { EventService } from 'src/app/state/event.service';
+import { AircraftsActionsTypes } from 'src/app/ngrx/aircraft.action';
+import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'app-aircrafts-navbar',

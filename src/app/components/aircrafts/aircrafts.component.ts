@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError, map, Observable, of, startWith } from 'rxjs';
-import { ActionEvent, AircraftsActionsTypes } from 'src/app/action/aircraft.action';
+import { ActionEvent, AircraftsActionsTypes } from 'src/app/ngrx/aircraft.action';
 import { Aircraft } from 'src/app/model/aircraft.model';
 import { AircraftService } from 'src/app/services/aircraft.service';
-import { AppDataState, DataStateEnum } from 'src/app/state/aircraft.state';
-import { EventService } from 'src/app/state/event.service';
+import { AppDataState, DataStateEnum } from 'src/app/ngrx/aircraft.state';
+import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'app-aircrafts',

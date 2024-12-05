@@ -1,5 +1,5 @@
 import { Subject } from "rxjs";
-import { ActionEvent } from "../action/aircraft.action";
+import { ActionEvent } from "../ngrx/aircraft.action";
 import { Injectable } from "@angular/core";
 
 @Injectable({providedIn: "root"})
