@@ -22,7 +22,7 @@ export class AircraftService {
   }
 
   //liste des avions en phase de développement
-  public getDevelopmentAircrafts():Observable<Aircraft[]>{
+  public getDeveloppedAircrafts():Observable<Aircraft[]>{
     return this.http.get<Aircraft[]>(environment.host+"/aircrafts?development=true");
   }
 
