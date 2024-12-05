@@ -1,0 +1,20 @@
+<h1>Connexion</h1>
+<p>Vous n'êtes pas connecté.<br>Connectez-vous ci-dessous :</p>
+
+<form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <input type="text" placeholder="Identifiant" [(ngModel)]="username" required class="form-control" name="username">
+        <input type="password" placeholder="Mot de passe" [(ngModel)]="password" required class="form-control" name="password">
+    </div>
+
+    <div class="bottom-buttons">
+        <div>
+            <button type="submit" class="btn btn-success">🤵🏻 Connexion</button>
+            <button class="btn btn-secondary" routerLink="/">↩ Retour à l'accueil</button>
+        </div>
+        <button routerLink="/register" class="btn btn-outline-primary">Créer un compte</button>
+    </div>
+
+    <div *ngIf="loginError" id="BadCredentials">Veuillez vérifier les informations saisies ou vous <a
+            routerLink="/register">inscrire</a>.</div>
+</form>

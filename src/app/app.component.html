@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
-  <a class="navbar-brand" href="#">AIRBUS</a>
+  <a class="navbar-brand" routerLink="/">AIRBUS</a>
 
   <!-- Links-->
    <ul class="navbar-nav">
@@ -7,7 +7,11 @@
       <a class="nav-link" routerLink="/aircrafts">Aircrafts</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Programs</a>
+      <a class="nav-link" routerLink="/programs">Programs</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" *ngIf="!authOK" routerLink="/auth">Login</a>
+      <a class="nav-link" *ngIf="authOK" routerLink="/auth">Logout</a>
     </li>
    </ul>
 </nav>

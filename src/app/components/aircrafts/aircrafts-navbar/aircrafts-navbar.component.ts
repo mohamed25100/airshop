@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AircraftsActionsTypes } from 'src/app/action/aircraft.action';
+import { AircraftsActionsTypes } from 'src/app/ngrx/aircraft.action';
 import { GetAllAircraftsAction, GetDesignedAircraftsAction, GetDevelopedAircraftsAction } from 'src/app/ngrx/aircrafts.actions';
-import { EventService } from 'src/app/state/event.service';
+//import { EventService } from 'src/app/services/event.service';
+//import { EventService } from 'src/app/state/event.service';
 
 @Component({
   selector: 'app-aircrafts-navbar',
