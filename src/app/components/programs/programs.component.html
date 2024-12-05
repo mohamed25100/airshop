@@ -1,4 +1,4 @@
-<ng-container *ngIf="aircrafts$ | async as result" [ngSwitch]="result.aircraftsState">
+<ng-container *ngIf="aircraftsState$ | async as result" [ngSwitch]="result.dataState">
     <ng-container *ngSwitchCase="aircraftsStateEnum.INITIAL">
         <div class="p-2"> Initial State</div>
     </ng-container>
@@ -9,7 +9,7 @@
         <div class="p-2">Loaded</div>
     </ng-container>
     <ng-container *ngSwitchCase="aircraftsStateEnum.ERROR">
-        <div class="p-2 text-danger">{{aircraftsStateEnum.errorMessage}}</div>
+        <div class="p-2 text-danger">{{result.errorMessage}}</div>
     </ng-container>
     <table class="table">
         <tr>

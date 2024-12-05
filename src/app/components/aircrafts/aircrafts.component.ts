@@ -23,6 +23,7 @@ export class AircraftsComponent implements OnInit {
     this.aircraftsState$ = this.store.pipe( //ecoute du store, on recolte le state des qu'il change pour afficher les données
       map((state)=> state.airbusState)
     )
+    
   }
 
   getAllAircrafts() {

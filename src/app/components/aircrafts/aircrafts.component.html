@@ -30,7 +30,7 @@
         <div *ngIf="aircraftsState$ | async as state">
             <ul>
               <li *ngFor="let aircraft of state.aircrafts">
-                <button (click)="onSelectAircraft(aircraft.msn)">
+                <button (click)="onSelectAircraft(+aircraft.msn)">
                   {{ aircraft.msn }} - {{ aircraft.prog }}
                 </button>
               </li>

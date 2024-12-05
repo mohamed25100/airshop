@@ -15,7 +15,7 @@ import { ProgramsComponent } from './components/programs/programs.component';
   declarations: [
     AppComponent,
     AircraftsComponent,
-    ProgramsComponent
+    ProgramsComponent,
   ],
   imports: [
     BrowserModule,

@@ -11,16 +11,16 @@ export enum AircraftActionsTypes {
 export enum DesignedAircraftActionsTypes {
     //Actions Get designed aircrafts
     //pour l'action consistant à ajouter les avions , 3 états possibles
-    GET_DESIGNED_AIRCRAFTS = "[Aircrafts] Get All aircrafts",
-    GET_DESIGNED_AIRCRAFTS_SUCCESS = "[Aircrafts] Get all aircrafts success",
-    GET_DESIGNED_AIRCRAFTS_ERROR = "[Aircrafts] Get all aircrafts error",
+    GET_DESIGNED_AIRCRAFTS = "[Aircrafts] Get designed aircrafts",
+    GET_DESIGNED_AIRCRAFTS_SUCCESS = "[Aircrafts] Get designed aircrafts success",
+    GET_DESIGNED_AIRCRAFTS_ERROR = "[Aircrafts] Get designed aircrafts error",
 }
 export enum DeveloppedAircraftActionsTypes {
     //Actions Get developped aircrafts
     //pour l'action consistant à ajouter les avions , 3 états possibles
-    GET_DEVELOPPED_AIRCRAFTS = "[Aircrafts] Get All aircrafts",
-    GET_DEVELOPPED_AIRCRAFTS_SUCCESS = "[Aircrafts] Get all aircrafts success",
-    GET_DEVELOPPED_AIRCRAFTS_ERROR = "[Aircrafts] Get all aircrafts error",
+    GET_DEVELOPPED_AIRCRAFTS = "[Aircrafts] Get developped aircrafts",
+    GET_DEVELOPPED_AIRCRAFTS_SUCCESS = "[Aircrafts] Get developped aircrafts success",
+    GET_DEVELOPPED_AIRCRAFTS_ERROR = "[Aircrafts] Get developped aircrafts error",
 }
 export enum AircraftByMsnActionsTypes {
     //Actions Get aircrafts by id
