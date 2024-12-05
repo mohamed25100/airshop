@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Aircraft } from '../model/aircraft.model';
 import { environment } from 'src/environments/environment';
 @Injectable({
@@ -30,7 +30,21 @@ export class AircraftService {
   public getAircraftByMsn(id:number) : Observable<Aircraft> {
     return this.http.get<Aircraft>(environment.host + "/aircrafts/" + id);
   }
+  /*
   public searchAircrafts(keyword: string): Observable<Aircraft[]> {
+    console.log('Service: Searching aircrafts with keyword:', keyword);
     return this.http.get<Aircraft[]>(environment.host + "/aircrafts?search=" + keyword);
+  }*/
+  public searchAircrafts(keyword: string): Observable<Aircraft[]> {
+    return this.http
+      .get<Aircraft[]>(environment.host+"/aircrafts/")
+      .pipe(
+        map((aircrafts) =>
+          aircrafts.filter(
+            (aircraft) =>
+              aircraft.prog.toLowerCase().includes(keyword.toLowerCase())
+          )
+        )
+      );
   }
 }

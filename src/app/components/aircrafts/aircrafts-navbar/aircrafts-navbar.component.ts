@@ -33,9 +33,20 @@ export class AircraftsNavbarComponent implements OnInit {
   getDevelopmentAircrafts(){
     this.store.dispatch(new GetDevelopedAircraftsAction({}));
   }
-  onSearch(value : any) {
 
+  onSearch(keyword: string): void {
+    if (keyword && keyword.trim().length > 0) {
+      console.log('Envoi de l\'action de recherche avec le mot-clé:', keyword.trim());
+      this.store.dispatch({
+        type: AircraftsActionsTypes.GET_SEARCH_AIRCRAFTS,
+        payload: keyword.trim(),
+      });
+    } else {
+      console.log('Veuillez saisir un mot-clé valide.');
+    }
   }
+  
+  
   
   //lorsque l'utilisateur clic sur un bouton l'action correspondante est émise
   /*9/ Gestion du composant de navigation

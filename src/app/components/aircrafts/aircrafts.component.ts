@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { catchError, map, Observable, of, startWith } from 'rxjs';
-import { ActionEvent, AircraftsActionsTypes } from 'src/app/ngrx/aircraft.action';
-import { Aircraft } from 'src/app/model/aircraft.model';
+//import { ActionEvent, AircraftsActionsTypes } from 'src/app/ngrx/aircraft.action';
+//import { Aircraft } from 'src/app/model/aircraft.model';
 import { AircraftsState, AircraftsStateEnum } from 'src/app/ngrx/aircrafts.state';
-import { AircraftService } from 'src/app/services/aircraft.service';
-import { AppDataState, DataStateEnum } from 'src/app/ngrx/aircraft.state';
-import { EventService } from 'src/app/services/event.service';
+//import { AircraftService } from 'src/app/services/aircraft.service';
+//import { AppDataState, DataStateEnum } from 'src/app/ngrx/aircraft.state';
+//import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'app-aircrafts',

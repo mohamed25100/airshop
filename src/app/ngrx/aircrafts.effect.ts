@@ -4,53 +4,65 @@ import { Actions, createEffect, ofType } from "@ngrx/effects"
 import { catchError, map, mergeMap, Observable, of } from "rxjs"
 import { Action } from "@ngrx/store"
 import { AircraftActionsTypes, DesignedAircraftActionsTypes, DevelopedAircraftActionsTypes, GetAllAircraftsActionError, GetAllAircraftsActionSuccess, GetDesignedAircraftsActionError, GetDesignedAircraftsActionSuccess, GetDevelopedAircraftsActionError, GetDevelopedAircraftsActionSuccess } from "./aircrafts.actions"
+import { AircraftsActionsTypes } from "./aircraft.action"
 
-@Injectable ()
+@Injectable()
 export class AircraftsEffects {
-    constructor(private aircraftService: AircraftService, private effectActions : Actions){
+    constructor(private aircraftService: AircraftService, private effectActions: Actions) {
     }
 
-    GetAllAircraftsEffect:Observable<Action> = createEffect( //creation effect ss condition, on ecoute les actions
+    GetAllAircraftsEffect: Observable<Action> = createEffect( //creation effect ss condition, on ecoute les actions
         () => this.effectActions.pipe(                        // des qu'une action arrive on verifie son type
             ofType(AircraftActionsTypes.GET_ALL_AIRCRAFTS), //action get, etape suivante merge
-            mergeMap((action) =>{
+            mergeMap((action) => {
                 return this.aircraftService.getAircrafts().pipe( //attente de reception des donnees en base: avions
-                map((aircrafts) => new GetAllAircraftsActionSuccess(aircrafts)), //si recu on retourne un observable
-                                                                                    //<action> dont le payload est la liste des avions
-                                                                                 //l'action une fois émise va être traité par le reducer
-                                                                                //case GetAllAircraftsActionTypes.Get_All_Aircrafts_Success
-                catchError((err) => of(new GetAllAircraftsActionError(err.message)))
+                    map((aircrafts) => new GetAllAircraftsActionSuccess(aircrafts)), //si recu on retourne un observable
+                    //<action> dont le payload est la liste des avions
+                    //l'action une fois émise va être traité par le reducer
+                    //case GetAllAircraftsActionTypes.Get_All_Aircrafts_Success
+                    catchError((err) => of(new GetAllAircraftsActionError(err.message)))
                 )
             })
-        ) 
+        )
     )
-    GetDesignAircraftsEffect:Observable<Action> = createEffect( //creation effect ss condition, on ecoute les actions
+    GetDesignAircraftsEffect: Observable<Action> = createEffect( //creation effect ss condition, on ecoute les actions
         () => this.effectActions.pipe(                        // des qu'une action arrive on verifie son type
             ofType(DesignedAircraftActionsTypes.GET_DESIGNED_AIRCRAFTS), //action get, etape suivante merge
-            mergeMap((action) =>{
+            mergeMap((action) => {
                 return this.aircraftService.getDesignedAircrafts().pipe( //attente de reception des donnees en base: avions
-                map((aircrafts) => new GetDesignedAircraftsActionSuccess(aircrafts)), //si recu on retourne un observable
-                                                                                    //<action> dont le payload est la liste des avions
-                                                                                 //l'action une fois émise va être traité par le reducer
-                                                                                //case GetAllAircraftsActionTypes.Get_All_Aircrafts_Success
-                catchError((err) => of(new GetDesignedAircraftsActionError(err.message)))
+                    map((aircrafts) => new GetDesignedAircraftsActionSuccess(aircrafts)), //si recu on retourne un observable
+                    //<action> dont le payload est la liste des avions
+                    //l'action une fois émise va être traité par le reducer
+                    //case GetAllAircraftsActionTypes.Get_All_Aircrafts_Success
+                    catchError((err) => of(new GetDesignedAircraftsActionError(err.message)))
                 )
             })
-        ) 
+        )
     )
-    GetDevelopedAircraftsEffect:Observable<Action> = createEffect( //creation effect ss condition, on ecoute les actions
+    GetDevelopedAircraftsEffect: Observable<Action> = createEffect( //creation effect ss condition, on ecoute les actions
         () => this.effectActions.pipe(                        // des qu'une action arrive on verifie son type
             ofType(DevelopedAircraftActionsTypes.GET_DEVELOPED_AIRCRAFTS), //action get, etape suivante merge
-            mergeMap((action) =>{
+            mergeMap((action) => {
                 return this.aircraftService.getDevelopmentAircrafts().pipe( //attente de reception des donnees en base: avions
-                map((aircrafts) => new GetDevelopedAircraftsActionSuccess(aircrafts)), //si recu on retourne un observable
-                                                                                    //<action> dont le payload est la liste des avions
-                                                                                 //l'action une fois émise va être traité par le reducer
-                                                                                //case GetAllAircraftsActionTypes.Get_All_Aircrafts_Success
-                catchError((err) => of(new GetDevelopedAircraftsActionError(err.message)))
+                    map((aircrafts) => new GetDevelopedAircraftsActionSuccess(aircrafts)), //si recu on retourne un observable
+                    //<action> dont le payload est la liste des avions
+                    //l'action une fois émise va être traité par le reducer
+                    //case GetAllAircraftsActionTypes.Get_All_Aircrafts_Success
+                    catchError((err) => of(new GetDevelopedAircraftsActionError(err.message)))
                 )
             })
-        ) 
+        )
     )
+    GetSearchAircraftsEffect: Observable<Action> = createEffect(() =>
+        this.effectActions.pipe(
+            ofType(AircraftsActionsTypes.GET_SEARCH_AIRCRAFTS),
+            mergeMap((action: any) =>
+                this.aircraftService.searchAircrafts(action.payload).pipe(
+                    map((aircrafts) => new GetAllAircraftsActionSuccess(aircrafts)),
+                    catchError((err) => of(new GetAllAircraftsActionError(err.message)))
+                )
+            )
+        )
+    );
 
 }
