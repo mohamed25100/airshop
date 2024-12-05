@@ -10,6 +10,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthEffects } from './ngrx/auth.effects';
 import { AuthReducer } from './ngrx/auth.reducer';
 import { AuthComponent } from './components/auth/auth.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,9 @@ import { AuthComponent } from './components/auth/auth.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({airbusState: AuthReducer}),
+    FormsModule,
+    ReactiveFormsModule,
+    StoreModule.forRoot({authState: AuthReducer}),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument()
   ],

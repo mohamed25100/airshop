@@ -1,3 +1,5 @@
+import { User } from "../model/user.model";
+
 export enum AuthStateEnum {
     LOADING = "Loading",
     LOADED = "Loaded",
@@ -6,15 +8,15 @@ export enum AuthStateEnum {
 }
 
 export interface AuthState {
-    userName: string,
-    password: string,
-    errroMessage: string,
-    dataState: AuthStateEnum
+    isAuthenticated: boolean;
+    user: User | null;
+    errorMessage: string | null;
+    dataState: AuthStateEnum;
 }
 
 export const initState: AuthState = {
-    userName: "",
-    password: "",
-    errroMessage: "",
+    isAuthenticated: false,
+    user: null,
+    errorMessage: null,
     dataState: AuthStateEnum.INITIAL
 }

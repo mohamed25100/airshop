@@ -7,7 +7,19 @@ export enum AuthActionsTypes {
     TRY_TO_LOGIN_ERROR = "[Auth] Try to login Error",
     LOGOUT = "[Auth] Logout",
     LOGOUT_SUCCESS = "[Auth] Logout Success",
-    LOGOUT_ERROR = "[Auth] Logout Error"
+    LOGOUT_ERROR = "[Auth] Logout Error",
+    CHECK_LOGIN_STATUS = "[Auth] Check login status",
+    CHECK_LOGIN_STATUS_SUCCESS = "[Auth] Check login status Success",
+    CHECK_LOGIN_STATUS_ERROR = "[Auth] Check login status Error",
+}
+
+// Check login status
+export class CheckLoginStatusAction implements Action {
+    type: AuthActionsTypes = AuthActionsTypes.CHECK_LOGIN_STATUS;
+
+    constructor(public payload: string[]) {
+
+    }    
 }
 
 // Try to login
@@ -23,7 +35,7 @@ export class TryToLoginActionSuccess implements Action {
     type: AuthActionsTypes = AuthActionsTypes.TRY_TO_LOGIN_SUCCESS;
 
     constructor(public payload: User | undefined) {
-
+        
     }    
 }
 

@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import { User } from '../model/user.model';
-import { Observable } from 'rxjs';
-import { ApiService } from './api.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  error: string | null = null;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private http: HttpClient) { }
 
-  getUser(userName: string, password: string): Observable<User> {
-    let result = undefined;
-
-    result = this.apiService.getUser(userName, password);
-
-    return result;
+  getUser(userName: string, password: string) {
+    return this.http.get<User[]>(environment.host + "/users?userName=" + encodeURI(userName) + "&password=" + encodeURI(password)).pipe(map(users => users.length > 0 ? users[0] : undefined) );
   }
 }
