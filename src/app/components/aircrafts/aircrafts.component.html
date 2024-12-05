@@ -1,4 +1,30 @@
 <div>
+    <app-aircrafts-navbar></app-aircrafts-navbar>
+    <ng-container *ngIf="aircraftsState$ | async as state" [ngSwitch]="state.dataState">
+        <ng-container *ngSwitchCase="aircraftsStateEnum.INITIAL">
+            <div class="p-2">Initial State</div>
+        </ng-container>
+        <ng-container *ngSwitchCase="aircraftsStateEnum.LOADING">
+            <div class="p-2">Loading</div>
+        </ng-container>
+        <ng-container *ngSwitchCase="aircraftsStateEnum.ERROR">
+            <div class="p-2 text-danger">{{state.errorMessage}}</div>
+        </ng-container>
+        <ng-container *ngSwitchCase="aircraftsStateEnum.LOADED">
+            <table class="table">
+                <tr>
+                    <th>Id</th><th>Program</th><th>Design</th><th>Developement</th>
+                </tr>
+                <tr *ngFor="let aircraft of state.aircrafts">
+                    <td>{{aircraft.msn}}</td>
+                    <td>{{aircraft.prog}}</td>
+                    <td>{{aircraft.design}}</td>
+                    <td>{{aircraft.development}}</td>
+                </tr>
+            </table>
+        </ng-container>
+    </ng-container>
+    <!--
     <app-aircrafts-navbar (eventEmitter)="onActionEvent($event)"></app-aircrafts-navbar>
     <ng-container *ngIf="aircrafts$ | async as result" [ngSwitch]="result.dataState">
         <ng-container *ngSwitchCase="dataStateEnum.LOADING">
@@ -22,6 +48,9 @@
             </tr>
         </table>
     </ng-container>
+    -->
+
+
     <!--option 1 - 2
     <ng-container *ngIf="error">
         <div class="p-2 text-danger">{{ error }}</div>

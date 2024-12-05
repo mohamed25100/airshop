@@ -8,6 +8,8 @@ import { AircraftsNavbarComponent } from './components/aircrafts/aircrafts-navba
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AircraftsReducer } from './ngrx/aircrafts.reducer';
+import { AircraftsEffects } from './ngrx/aircrafts.effect';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot({airBusState : AircraftsReducer}), //spécifie le reducer
+    StoreModule.forRoot({airbusState : AircraftsReducer}), //spécifie le reducer
     EffectsModule.forRoot([AircraftsEffects]), //spécifie les effects
     StoreDevtoolsModule.instrument() //en l'activant ici, à chaque action de NGRX, le plugin redux permet l'analyse du state durant le dev
   ],
