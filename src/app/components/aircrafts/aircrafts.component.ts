@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError, map, Observable, of, startWith } from 'rxjs';
+import { ActionEvent, AircraftsActionsTypes } from 'src/app/action/aircraft.action';
 import { Aircraft } from 'src/app/model/aircraft.model';
 import { AircraftService } from 'src/app/services/aircraft.service';
 import { AppDataState, DataStateEnum } from 'src/app/state/aircraft.state';
+import { EventService } from 'src/app/state/event.service';
 
 @Component({
   selector: 'app-aircrafts',
@@ -16,12 +18,56 @@ export class AircraftsComponent implements OnInit {
   //cette étape est indispensable afin de permettre à pipe de renvoyer le même type de donnée pour les 3 cas d'utilisations s,m et c
   readonly dataStateEnum = DataStateEnum;
 
-  constructor(private aircraftService:AircraftService) {}
-
-  ngOnInit(): void {
-    
+  constructor(private aircraftService:AircraftService, private eventService:EventService) {
   }
 
+  ngOnInit(): void {
+    this.eventService.eventSubjectObservable.subscribe((actionEvent : ActionEvent) => {
+      this.onActionEvent(actionEvent);
+    })
+  }
+  //En résumé, le composant parent écoute les évènements de l'enfant
+  //et lorsqu'il se produit qqchose la méthode ci dessous est appelé
+  onActionEvent($actionEvent : ActionEvent){
+    switch($actionEvent.type){ //qq soit l'évt, on le gère ici
+      case AircraftsActionsTypes.GET_ALL_AIRCRAFTS :
+        this.getAllAircrafts();
+        break;  
+      case AircraftsActionsTypes.GET_SEARCH_AIRCRAFTS :
+        this.search($actionEvent.payload);
+        break;
+      case AircraftsActionsTypes.GET_DESIGNED_AIRCRAFTS :
+        this.getDesignedAircrafts();
+        break;
+      case AircraftsActionsTypes.GET_DEVELOPMENT_AIRCRAFTS :
+        this.getDevelopmentAircrafts();
+        break;
+    }
+  }
+  search(keyword: string) {
+    // Assainir le mot-clé ou gérer les cas limites
+    const trimmedKeyword = keyword.trim().toLowerCase();
+  
+    if (!trimmedKeyword) {
+      // Gérer une recherche vide
+      this.aircrafts$ = of({ dataState: DataStateEnum.ERROR, errorMessage: 'Veuillez saisir un mot-clé de recherche' });
+      return;
+    }
+  
+    this.aircrafts$ = this.aircraftService.getAircrafts().pipe(
+      map((data) => {
+        // Filtrer les avions par mot-clé (rechercher dans les champs msn ou prog)
+        const filteredAircrafts = data.filter(
+          (aircraft) =>
+            aircraft.msn.toString().includes(trimmedKeyword) || aircraft.prog.toLowerCase().includes(trimmedKeyword)
+        );
+        return { dataState: DataStateEnum.LOADED, data: filteredAircrafts };
+      }),
+      startWith({ dataState: DataStateEnum.LOADING }),
+      catchError((err) => of({ dataState: DataStateEnum.ERROR, errorMessage: err.message }))
+    );
+  }
+  
   getAllAircrafts() {
     //option 3 : méthode Pipe avec un ensemble d'opérateur + gestion des états du chargement des données
     //du coup, on peut appliquer un ensemble d'opérateur

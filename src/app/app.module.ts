@@ -11,12 +11,14 @@ import { AuthEffects } from './ngrx/auth.effects';
 import { AuthReducer } from './ngrx/auth.reducer';
 import { AuthComponent } from './components/auth/auth.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AircraftsNavbarComponent } from './components/aircrafts/aircrafts-navbar/aircrafts-navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AircraftsComponent,
-    AuthComponent
+    AuthComponent,
+    AircraftsNavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -24,9 +26,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({authState: AuthReducer}),
-    EffectsModule.forRoot([AuthEffects]),
-    StoreDevtoolsModule.instrument()
+    StoreModule.forRoot({authState: AuthReducer, airbusState: AircraftsReducer}), // Spécifie les reducers
+    EffectsModule.forRoot([AuthEffects, AircraftsEffects]), // Spécifie les effects
+    StoreDevtoolsModule.instrument() // En l'activant ici, à chaque action de NGRX, le plugin redux permet l'analyse du state durant le dev
   ],
   providers: [],
   bootstrap: [AppComponent]
