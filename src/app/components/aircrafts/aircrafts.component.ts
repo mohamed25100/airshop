@@ -16,7 +16,7 @@ export class AircraftsComponent implements OnInit {
   //option 3 : aircrafts est de type observable de structure de donnée AppDataState constituée de 3 éléments facultatifs
   //le type générique ici sera dans notre cas une liste d'avions
   //cette étape est indispensable afin de permettre à pipe de renvoyer le même type de donnée pour les 3 cas d'utilisations s,m et c
-  readonly dataStateEnum = AircraftsStateEnum;
+  readonly aircraftsStateEnum = AircraftsStateEnum;
 
   constructor(private store: Store<any>, private router: Router) {} //injection du store
 

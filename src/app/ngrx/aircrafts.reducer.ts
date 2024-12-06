@@ -1,8 +1,7 @@
 
 import { AircraftsState, AircraftsStateEnum, initState } from "./aircrafts.state";
-import { AircraftActionsTypes, AircraftsActions, DesignedAircraftActionsTypes, DevelopedAircraftActionsTypes } from "./aircrafts.actions";
+import { AircraftActionsTypes, AircraftsActions, DesignedAircraftActionsTypes, DeveloppedAircraftActionsTypes, SearchAircraftActionsTypes } from "./aircrafts.actions";
 import { Action } from "@ngrx/store";
-import { AircraftsActionsTypes } from "./aircraft.action";
 
 
 export function AircraftsReducer(state: AircraftsState = initState, action: Action) { // type d'action, payload
@@ -13,11 +12,11 @@ export function AircraftsReducer(state: AircraftsState = initState, action: Acti
             case DesignedAircraftActionsTypes.GET_DESIGNED_AIRCRAFTS:
                 console.log("loading...");
                 return { ...state, DataState: AircraftsStateEnum.LOADING }
-            case DevelopedAircraftActionsTypes.GET_DEVELOPED_AIRCRAFTS:
+            case DeveloppedAircraftActionsTypes.GET_DEVELOPPED_AIRCRAFTS:
                 console.log("loading...");
                 return { ...state, DataState: AircraftsStateEnum.LOADING }
 
-            case AircraftsActionsTypes.GET_SEARCH_AIRCRAFTS:
+            case SearchAircraftActionsTypes.GET_SEARCH_AIRCRAFTS:
                 console.log('loading...');
                 return { ...state, dataState: AircraftsStateEnum.LOADING };
                     
@@ -27,18 +26,18 @@ export function AircraftsReducer(state: AircraftsState = initState, action: Acti
         //renvoie un clone  + nouveau dataState + liste des avions en base contenu dans le payload
         case DesignedAircraftActionsTypes.GET_DESIGNED_AIRCRAFTS_SUCCESS:
             return { ...state, dataState: AircraftsStateEnum.LOADED, aircrafts: (<AircraftsActions>action).payload }
-        case DevelopedAircraftActionsTypes.GET_DEVELOPED_AIRCRAFTS_SUCCESS:
+        case DeveloppedAircraftActionsTypes.GET_DEVELOPPED_AIRCRAFTS_SUCCESS:
             return { ...state, dataState: AircraftsStateEnum.LOADED, aircrafts: (<AircraftsActions>action).payload }
-        case AircraftActionsTypes.GET_SEARCH_AIRCRAFTS_SUCCESS:
+        case SearchAircraftActionsTypes.GET_SEARCH_AIRCRAFTS_SUCCESS:
             return { ...state, dataState: AircraftsStateEnum.LOADED, aircrafts: (<AircraftsActions>action).payload };
 
         case AircraftActionsTypes.GET_ALL_AIRCRAFTS_ERROR:
             return { ...state, dataState: AircraftsStateEnum.ERROR, errorMessage: (<AircraftsActions>action).payload }
         case DesignedAircraftActionsTypes.GET_DESIGNED_AIRCRAFTS_ERROR:
             return { ...state, dataState: AircraftsStateEnum.ERROR, errorMessage: (<AircraftsActions>action).payload }
-        case DevelopedAircraftActionsTypes.GET_DEVELOPED_AIRCRAFTS_ERROR:
+        case DeveloppedAircraftActionsTypes.GET_DEVELOPPED_AIRCRAFTS_ERROR:
             return { ...state, dataState: AircraftsStateEnum.ERROR, errorMessage: (<AircraftsActions>action).payload }
-        case AircraftActionsTypes.GET_SEARCH_AIRCRAFTS_ERROR:
+        case SearchAircraftActionsTypes.GET_SEARCH_AIRCRAFTS_ERROR:
             return { ...state, dataState: AircraftsStateEnum.ERROR, errorMessage: (<AircraftsActions>action).payload };            
         
         default:

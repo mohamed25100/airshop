@@ -8,6 +8,14 @@ export enum AircraftActionsTypes {
     GET_ALL_AIRCRAFTS_SUCCESS = "[Aircrafts] Get all aircrafts success",
     GET_ALL_AIRCRAFTS_ERROR = "[Aircrafts] Get all aircrafts error",
 }
+
+export enum SearchAircraftActionsTypes {
+    //Actions Get all aircrafts
+    //pour l'action consistant à ajouter tous les avions , 3 états possibles
+    GET_SEARCH_AIRCRAFTS = "[Aircrafts] Get All aircrafts",
+    GET_SEARCH_AIRCRAFTS_SUCCESS = "[Aircrafts] Get all aircrafts success",
+    GET_SEARCH_AIRCRAFTS_ERROR = "[Aircrafts] Get all aircrafts error",
+}
 export enum DesignedAircraftActionsTypes {
     //Actions Get designed aircrafts
     //pour l'action consistant à ajouter les avions , 3 états possibles
@@ -98,4 +106,22 @@ export class GetAircraftByMsnActionError implements Action{
     constructor(public payload:string){
     }
 }
-export type AircraftsActions = GetAllAircraftsAction | GetAllAircraftsActionSuccess | GetAllAircraftsActionError | GetDesignedAircraftsAction |  GetDesignedAircraftsActionSuccess | GetDesignedAircraftsActionError |GetDeveloppedAircraftsAction | GetDeveloppedAircraftsActionSuccess | GetDeveloppedAircraftsActionError | GetAircraftByMsnAction | GetAircraftByMsnActionSuccess | GetAircraftByMsnActionError
+
+// Search 
+export class GetSearchAircraftsAction implements Action{ //A fixer
+    type: SearchAircraftActionsTypes = SearchAircraftActionsTypes.GET_SEARCH_AIRCRAFTS;
+    constructor(public payload:any){
+    }
+}
+export class GetSearchAircraftsActionSuccess implements Action{
+    type: SearchAircraftActionsTypes = SearchAircraftActionsTypes.GET_SEARCH_AIRCRAFTS_SUCCESS;
+    constructor(public payload:Aircraft[]){
+    }
+}
+
+export class GetSearchAircraftsActionError implements Action{
+    type: SearchAircraftActionsTypes = SearchAircraftActionsTypes.GET_SEARCH_AIRCRAFTS_ERROR;
+    constructor(public payload:string){
+    }
+}
+export type AircraftsActions = GetSearchAircraftsActionError | GetSearchAircraftsActionSuccess | GetSearchAircraftsAction | GetAllAircraftsAction | GetAllAircraftsActionSuccess | GetAllAircraftsActionError | GetDesignedAircraftsAction |  GetDesignedAircraftsActionSuccess | GetDesignedAircraftsActionError |GetDeveloppedAircraftsAction | GetDeveloppedAircraftsActionSuccess | GetDeveloppedAircraftsActionError | GetAircraftByMsnAction | GetAircraftByMsnActionSuccess | GetAircraftByMsnActionError

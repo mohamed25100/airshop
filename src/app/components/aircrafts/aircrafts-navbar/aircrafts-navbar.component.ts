@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AircraftsActionsTypes } from 'src/app/ngrx/aircraft.action';
-import { GetAllAircraftsAction, GetDesignedAircraftsAction, GetDevelopedAircraftsAction } from 'src/app/ngrx/aircrafts.actions';
+import { AircraftActionsTypes, SearchAircraftActionsTypes } from 'src/app/ngrx/aircrafts.actions';
+import { GetAllAircraftsAction, GetDesignedAircraftsAction, GetDeveloppedAircraftsAction } from 'src/app/ngrx/aircrafts.actions';
 //import { EventService } from 'src/app/services/event.service';
 //import { EventService } from 'src/app/state/event.service';
 
@@ -31,42 +31,18 @@ export class AircraftsNavbarComponent implements OnInit {
     this.store.dispatch(new GetDesignedAircraftsAction({}));
   }
   getDevelopmentAircrafts(){
-    this.store.dispatch(new GetDevelopedAircraftsAction({}));
+    this.store.dispatch(new GetDeveloppedAircraftsAction({}));
   }
 
   onSearch(keyword: string): void {
     if (keyword && keyword.trim().length > 0) {
       console.log('Envoi de l\'action de recherche avec le mot-clé:', keyword.trim());
       this.store.dispatch({
-        type: AircraftsActionsTypes.GET_SEARCH_AIRCRAFTS,
+        type: SearchAircraftActionsTypes.GET_SEARCH_AIRCRAFTS,
         payload: keyword.trim(),
       });
     } else {
       console.log('Veuillez saisir un mot-clé valide.');
     }
   }
-  
-  
-  
-  //lorsque l'utilisateur clic sur un bouton l'action correspondante est émise
-  /*9/ Gestion du composant de navigation
-  getAllAircrafts() {
-    this.eventService.publishEvent({type : AircraftsActionsTypes.GET_ALL_AIRCRAFTS ,payload: null})
-    //this.eventEmitter.emit({type : AircraftsActionsTypes.GET_ALL_AIRCRAFTS , payload : null});
-    //dorénavant on émet notre objet évt ici avec un payload null puisqu'il n'y a pas d'arguments...
-  }
-  onSearch(value : any) {
-    this.eventService.publishEvent({type : AircraftsActionsTypes.GET_SEARCH_AIRCRAFTS ,payload: value})
-    //this.eventEmitter.emit({type : AircraftsActionsTypes.GET_SEARCH_AIRCRAFTS ,payload: value})
-    //émission de lévènement avec le mot clé de recherche dans le payload
-  }
-  getDesignedAircrafts() {
-    this.eventService.publishEvent({type : AircraftsActionsTypes.GET_DESIGNED_AIRCRAFTS ,payload: null})
-    //this.eventEmitter.emit({type : AircraftsActionsTypes.GET_DESIGNED_AIRCRAFTS, payload : null});
-  }
-  getDevelopmentAircrafts() {
-    this.eventService.publishEvent({type : AircraftsActionsTypes.GET_DEVELOPMENT_AIRCRAFTS ,payload: null})
-    //this.eventEmitter.emit({type : AircraftsActionsTypes.GET_DEVELOPMENT_AIRCRAFTS, payload : null});
-  }
-  */
 }
