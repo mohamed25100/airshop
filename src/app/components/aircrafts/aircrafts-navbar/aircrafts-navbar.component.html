@@ -1,0 +1,13 @@
+<nav class="navbar navbar-expand-sm">
+    <ul class="navbar navbar-nav">
+        <li>
+            <button class="btn btn-outline-info m-2" (click)="getAllAircrafts()">Tous les Avions</button>
+            <button class="btn btn-outline-info m-2" (click)="getDesignedAircrafts()">Avions en étude</button>
+            <button class="btn btn-outline-info m-2" (click)="getDevelopmentAircrafts()">Avions en construction</button>
+        </li>
+        <li>
+            <input type="text" placeholder="Filter by Program" #filter>
+            <button class="primary" type="button" (click)="onSearch(filter.value)">Search</button>
+        </li>
+    </ul>
+</nav>
