@@ -43,6 +43,6 @@ export class AircraftsComponent implements OnInit {
 
   // je sélectionne un avion et renvoi vers la page de Programs
   onSelectAircraft(msn: Number): void {
-  this.router.navigate(['/programs', msn]); // Redirection vers le component Programs avec msn comme paramètre
+  this.router.navigateByUrl('programs/'+msn); // Redirection vers le component Programs avec msn comme paramètre
     }
 }

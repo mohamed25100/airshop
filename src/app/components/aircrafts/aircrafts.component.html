@@ -20,6 +20,10 @@
                     <td>{{aircraft.prog}}</td>
                     <td>{{aircraft.design}}</td>
                     <td>{{aircraft.development}}</td>
+                    <td>
+                        <button (click)="onSelectAircraft(+aircraft.msn)">
+                          {{ aircraft.msn }} - {{ aircraft.prog }}
+                        </button></td>
                 </tr>
             </table>
         </ng-container>
