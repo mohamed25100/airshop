@@ -27,9 +27,9 @@
                 <td>{{aircraft.development}}</td>
             </tr>
         </table>
-        <div *ngIf="aircraftsState$ | async as state">
+        <div>
             <ul>
-              <li *ngFor="let aircraft of state.aircrafts">
+              <li *ngFor="let aircraft of result.aircrafts">
                 <button (click)="onSelectAircraft(+aircraft.msn)">
                   {{ aircraft.msn }} - {{ aircraft.prog }}
                 </button>
