@@ -3,7 +3,7 @@ import { AircraftService } from "../services/aircraft.service"
 import { Actions, createEffect, ofType } from "@ngrx/effects"
 import { catchError, map, mergeMap, Observable, of } from "rxjs"
 import { Action } from "@ngrx/store"
-import { AircraftActionsTypes, DesignedAircraftActionsTypes, DeveloppedAircraftActionsTypes, GetAllAircraftsActionError, GetAllAircraftsActionSuccess, GetDesignedAircraftsActionError, GetDesignedAircraftsActionSuccess, GetDeveloppedAircraftsActionError, GetDeveloppedAircraftsActionSuccess, SearchAircraftActionsTypes } from "./aircrafts.actions"
+import { AircraftActionsTypes, DesignedAircraftActionsTypes, DeveloppedAircraftActionsTypes, GetAllAircraftsActionError, GetAllAircraftsActionSuccess, GetDesignedAircraftsActionError, GetDesignedAircraftsActionSuccess, GetDeveloppedAircraftsActionError, GetDeveloppedAircraftsActionSuccess, GetSearchAircraftsActionError, GetSearchAircraftsActionSuccess, SearchAircraftActionsTypes } from "./aircrafts.actions"
 
 @Injectable()
 export class AircraftsEffects {
@@ -16,9 +16,6 @@ export class AircraftsEffects {
             mergeMap((action) => {
                 return this.aircraftService.getAircrafts().pipe( //attente de reception des donnees en base: avions
                     map((aircrafts) => new GetAllAircraftsActionSuccess(aircrafts)), //si recu on retourne un observable
-                    //<action> dont le payload est la liste des avions
-                    //l'action une fois émise va être traité par le reducer
-                    //case GetAllAircraftsActionTypes.Get_All_Aircrafts_Success
                     catchError((err) => of(new GetAllAircraftsActionError(err.message)))
                 )
             })
@@ -57,8 +54,8 @@ export class AircraftsEffects {
             ofType(SearchAircraftActionsTypes.GET_SEARCH_AIRCRAFTS),
             mergeMap((action: any) =>
                 this.aircraftService.searchAircrafts(action.payload).pipe(
-                    map((aircrafts) => new GetAllAircraftsActionSuccess(aircrafts)),
-                    catchError((err) => of(new GetAllAircraftsActionError(err.message)))
+                    map((aircrafts) => new GetSearchAircraftsActionSuccess(aircrafts)),
+                    catchError((err) => of(new GetSearchAircraftsActionError(err.message)))
                 )
             )
         )

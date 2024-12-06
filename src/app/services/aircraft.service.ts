@@ -12,7 +12,7 @@ export class AircraftService {
 
   //liste de tous les avions en base => une fois sur 2 souhaite provoquer une erreur
   public getAircrafts():Observable<Aircraft[]> {
-    let host = environment.host;
+    let host = environment.host;    
     return this.http.get<Aircraft[]>(host+"/aircrafts");
   }
 
